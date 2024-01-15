@@ -11,10 +11,9 @@
   const app = express();
   const PORT = process.env.PORT || 3001;
 
-// HANDLEBARS SETUP  
+// HANDLEBARS SETUP BOILERPLATE 
   const hbs = exphbs.create({});
-  // Set Handlebars as the default template engine.
-  app.engine('handlebars', hbs.engine);
+  app.engine('handlebars', hbs.engine); // Set Handlebars as the default template engine.
   app.set('view engine', 'handlebars');
 
 // //SESSION _______________________
