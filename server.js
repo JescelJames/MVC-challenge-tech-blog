@@ -7,23 +7,23 @@
 // APP/PORT______________________
   const app = express();
   const PORT = process.env.PORT || 3001;
-//SESSION _______________________
-  const sess = {
-    secret: 'Super secret secret',
-    cookie: {},
-    resave: false,
-    saveUninitialized: true,
-    store: new SequelizeStore({
-      db: sequelize
-    })
-  };
-  app.use(session(sess));
+// //SESSION _______________________
+//   const sess = {
+//     secret: 'Super secret secret',
+//     cookie: {},
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new SequelizeStore({
+//       db: sequelize
+//     })
+//   };
+//   app.use(session(sess));
 //MIDDLEWARES_________________  
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 //ROUTES___________________
   app.use(routes);
 //START SERVER________________________
-  sequelize.sync({ force: false }).then(() => {
+  // sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
-  });
+  // });
