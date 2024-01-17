@@ -1,19 +1,21 @@
-//REQUIREMENTS________________
+// DEPENDENCIES___________________
   const express = require('express');
   const path = require('path');
-  const exphbs = require('express-handlebars');
   const session = require('express-session');
   const SequelizeStore = require('connect-session-sequelize')(session.Store);
+  
+// REQUIRE FOR CONTROLLERS AND DATABASE CONNECTION _________________
   const routes = require('./controllers');
   const sequelize = require('./config/connection');
 
-// APP/PORT______________________
+// APP/PORT _________________________
   const app = express();
   const PORT = process.env.PORT || 3001;
 
-// HANDLEBARS SETUP BOILERPLATE 
+// HANDLEBARS SETUP BOILERPLATE ___________
+  const exphbs = require('express-handlebars');
   const hbs = exphbs.create({});
-  app.engine('handlebars', hbs.engine); // Set Handlebars as the default template engine.
+  app.engine('handlebars', hbs.engine); 
   app.set('view engine', 'handlebars');
 
 // //SESSION _______________________
@@ -29,13 +31,15 @@
 //   };
 //   app.use(session(sess));
 
-//MIDDLEWARES_________________  
+// MIDDLEWARES_________________________________  
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(__dirname, 'public')));
-//ROUTES___________________
+
+// ROUTES ________________________________________________
   app.use(routes);
-//START SERVER________________________
-  // sequelize.sync({ force: false }).then(() => {
+  
+//START SERVER_______________________________________
+  sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
-  // });
+  });
