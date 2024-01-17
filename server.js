@@ -4,7 +4,7 @@
   const session = require('express-session');
   const SequelizeStore = require('connect-session-sequelize')(session.Store);
   
-// FOLDER LINKS _____________________
+// REQUIRE FOR CONTROLLERS AND DATABASE CONNECTION _________________
   const routes = require('./controllers');
   const sequelize = require('./config/connection');
 
@@ -40,6 +40,6 @@
   app.use(routes);
   
 //START SERVER_______________________________________
-  // sequelize.sync({ force: false }).then(() => {
+  sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
-  // });
+  });
