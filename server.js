@@ -18,18 +18,18 @@
   app.engine('handlebars', hbs.engine); 
   app.set('view engine', 'handlebars');
 
-// //SESSION _______________________
+//SESSION _______________________
 
-//   const sess = {
-//     secret: 'Super secret secret',
-//     cookie: {},
-//     resave: false,
-//     saveUninitialized: true,
-//     store: new SequelizeStore({
-//       db: sequelize
-//     })
-//   };
-//   app.use(session(sess));
+  const sess = {
+    secret: 'process.env.DB_SECRET,',
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db: sequelize
+    })
+  };
+  app.use(session(sess));
 
 // MIDDLEWARES_________________________________  
   app.use(express.json());
