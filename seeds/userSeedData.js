@@ -8,12 +8,12 @@ const userdata = [
 
 ];
 
-// const seedUsers = () => User.bulkCreate(userData, {
-//   individualHooks: true,
-//   returning: true,
-// });
+const seedUsers = () => User.bulkCreate(userdata, {
+  individualHooks: true,
+  returning: true,
+});
 
-const seedUsers = () => User.bulkCreate(userdata);
+// const seedUsers = () => User.bulkCreate(userdata);
 
 // console.log(User); // Check if User is undefined
 // console.log(require('../models')); // Check the structure of the imported object
