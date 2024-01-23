@@ -29,4 +29,45 @@ router.post('/', async (req, res) => {
 
 
 
+router.post('/login', async (req, res) => {
+  try {
+      const UserData = await User.findOne({
+          where: {
+              username: req.body.username
+          }
+      });
+
+      if (!UserData) {
+          res.status(400).json({ message: 'No user with that username!' });
+          return;
+      }
+
+      const validPassword = UserData.checkPassword(req.body.password);
+
+      if (!validPassword) {
+          res.status(400).json({ message: 'Incorrect password!' });
+          return;
+      }
+
+      // Save session information only if the user is found and the password is valid
+      req.session.save(() => {
+          req.session.user_id = UserData.id;
+          req.session.username = UserData.username;
+          req.session.loggedIn = true;
+
+          res.json({
+              user: UserData,
+              message: 'You are now logged in!'
+          });
+      });
+
+  } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+  }
+});
+
+
+
+
 module.exports = router;
