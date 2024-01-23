@@ -10,16 +10,22 @@ router.post('/', async (req, res) => {
         password: req.body.password
       }
     );
-    
-      res.status(200).json(userData);
-  }
+    // Save session information after successfully creating the user
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.username = userData.username;
+      req.session.loggedIn = true;
 
+      // res.json(userData);
+      res.status(200).json(userData);
+    });
+      
+  }
   catch (err) {
     res.status(400).json(err);
   }
 
-
-})
+});
 
 
 
