@@ -1,6 +1,25 @@
 const router = require("express").Router();
 const { User } = require("../../models");
 
+// // GET ALL USERS // does not work with insomnia
+// router.get('/', async (req, res) => {
+//   try {
+//       const userData = await User.findAll({
+//           // attributes: {
+//           //     exclude: ['password']
+//           // }
+//       });
+//       res.status(200).json(userData);
+//   } catch (err) {
+//       console.log(err);
+//       res.status(500).json(err);
+//   }
+// });
+
+
+
+
+
 // CREATE A NEW USER
 router.post("/", async (req, res) => {
   try {
@@ -25,20 +44,23 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+
+
 router.post("/login", async (req, res) => {
   try {
-    const UserData = await User.findOne({
+    const userData = await User.findOne({
       where: {
         username: req.body.username,
       },
     });
 
-    if (!UserData) {
+    if (!userData) {
       res.status(400).json({ message: "No user with that username!" });
       return;
     }
 
-    const validPassword = UserData.checkPassword(req.body.password);
+    const validPassword = userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: "Incorrect password!" });
@@ -47,12 +69,12 @@ router.post("/login", async (req, res) => {
 
     // Save session information only if the user is found and the password is valid
     req.session.save(() => {
-      req.session.user_id = UserData.id;
-      req.session.username = UserData.username;
+      req.session.user_id = userData.id;
+      req.session.username = userData.username;
       req.session.loggedIn = true;
 
       res.json({
-        user: UserData,
+        user: userData,
         message: "You are now logged in!",
       });
     });
