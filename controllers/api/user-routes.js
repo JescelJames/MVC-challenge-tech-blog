@@ -20,11 +20,11 @@ const { User } = require("../../models");
 
 
 
-// CREATE A NEW USER
+// CREATE A NEW USER /api/users
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body.username);
-    console.log(req.body.password);
+    console.log('@controllers>api>user-routes.js --->',req.body.username);
+    console.log('@controllers>api>user-routes.js ---> --->',req.body.password);
     const userData = await User.create({
       username: req.body.username,
       password: req.body.password,
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
 
 
 
-
+// /api/users/login
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({

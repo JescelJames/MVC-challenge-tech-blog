@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../models')
 
-
+//localhost:3001
 router.get('/', async (req, res) => {
   res.render('all');
 }); 
