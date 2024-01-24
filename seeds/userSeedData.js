@@ -1,4 +1,4 @@
-const  User = require('../models');
+const  { User } = require('../models');
 
 const userdata = [
   {
@@ -15,8 +15,8 @@ const seedUsers = () => User.bulkCreate(userdata, {
 
 // const seedUsers = () => User.bulkCreate(userdata);
 
-// console.log(User); // Check if User is undefined
-// console.log(require('../models')); // Check the structure of the imported object
+console.log(User); // Check if User is undefined
+console.log(require('../models')); // Check the structure of the imported object
 
 
 module.exports =  seedUsers;
